@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+
+	<resultMap id="resultMember" type="Member">
+		
+	</resultMap>
+	
+<!-- 	<select id="checkIdDup" parameterType="string" resultType="Member" resultMap="resultMember">
+		SELECT * FROM MEMBER WHERE ID = #{userid}
+	</select>
+	 -->
+	<select id="loginCheck" parameterType="Member" resultType="Member" resultMap="resultMember">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id} AND MEMBER_PWD = #{member_pwd}
+	</select>
+	
+	<select id="idChk" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE member_id = #{member_id}
+	</select>
+	
+	<insert id="mInsert" parameterType="Member">
+		INSERT INTO MEMBER VALUES (#{member_id}, #{member_pwd}, #{member_name}, #{birth}, default, #{phone}, #{post}, #{address1}, #{address2}, 0, 1, default, #{email}, #{salt})
+	</insert>
+	
+	<select id="memberList" parameterType="Member" resultType="Member" resultMap="resultMember">
+		SELECT * FROM MEMBER
+	</select>
+
+<!-- 	<insert id="insertMember" parameterType="Member" flushCache="true"
+ statementType="PREPARED" useGeneratedKeys="true" timeout="20">
+ 	INSERT INTO MEMBER VALUES(#{id}, #{passwd}, #{name}, #{email}, #{gender}, #{age}, #{phone}, #{address}, DEFAULT)
+  </insert>
+ -->
+
+	<update id="dormantMember" parameterType="Member">
+		UPDATE MEMBER SET DORMANT_YN = 'y' WHERE MEMBER_ID = #{member_id}
+	</update>
+  
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET MEMBER_NAME = #{member_name}, BIRTH = #{birth}, PHONE = #{phone}, POST = #{post}, ADDRESS1 = #{address1}, ADDRESS2 = #{address2}, EMAIL = #{email} 
+		WHERE MEMBER_ID = #{member_id}
+	</update>
+	
+	<update id="passwordUpdate" parameterType="Member">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{member_pwd}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
+
+    <select id="searchMember" parameterType="string" resultType="Member">
+    	SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+    </select>
+    
+    
+    <select id="memberSelectList" parameterType="_int" resultType="Member" resultMap="resultMember">
+    	select *
+		from (select rownum rnum, member_id,
+		member_name, birth, regist_date,
+		phone, address1, address2, point, grade, 
+		dormant_yn, email
+		from
+		(select * from member order by regist_date desc)
+		where rownum&lt;=#{endRow})
+		where rnum&gt;=#{startRow}
+    </select>
+    
+    <select id="memberCount" resultType="_int">
+    	select count(*) from member
+    </select>
+    
+    <select id="memberOne" parameterType="string" resultType="Member" resultMap="resultMember">
+    	select * from member where member_id=#{member_id}
+    </select>
+    
+    <update id="updateGrade" parameterType="Member">
+     update member set grade=#{grade}
+     where member_id=#{member_id}
+    </update>
+    
+    <update id="updateDormant" parameterType="Member">
+    	update member set dormant_yn=#{dormant_yn}
+   		where member_id=#{member_id}
+    </update>
+    
+    <select id="searchingMember" parameterType="string" resultType="Member" resultMap="resultMember">
+    	select * from member where member_id=#{member_id}
+    </select>
+
+</mapper>

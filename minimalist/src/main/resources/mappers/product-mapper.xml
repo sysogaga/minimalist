@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Product">
+
+	<resultMap id="resultProduct" type="Product">
+		<id property="product_code" column="PRODUCT_CODE" />
+  		<result property="product_name" column="PRODUCT_NAME"/>
+  		<result property="product_category" column="PRODUCT_CATEGORY"/>
+  		<result property="product_brand" column="PRODUCT_BRAND"/>
+  		<result property="product_descript" column="PRODUCT_DESCRIPT"/>
+  		<result property="product_original_price" column="PRODUCT_ORIGINAL_PRICE"/>
+  		<result property="rent_price" column="RENT_PRICE"/>
+  		<result property="product_size33" column="PRODUCT_SIZE33"/>
+  		<result property="product_size44" column="PRODUCT_SIZE44"/>
+  		<result property="product_size55" column="PRODUCT_SIZE55"/>
+  		<result property="product_size66" column="PRODUCT_SIZE66"/>
+  		<result property="product_size77" column="PRODUCT_SIZE77"/>
+  		<result property="product_color" column="PRODUCT_COLOR"/>
+  		<result property="receive_date" column="RECEIVE_DATE"/>
+  		<result property="product_hit" column="PRODUCT_HIT"/>
+  		<result property="product_delete" column="PRODUCT_DELETE"/>
+
+		<collection property="productImageList" ofType="ProductImage">
+			<result property="product_image_path" column="PRODUCT_IMAGE_PATH"/>
+			<result property="product_code" column="PRODUCT_CODE" />
+		</collection>
+	</resultMap>
+
+	<select id="productDetail" parameterType="Product" resultType="Product" resultMap="resultProduct">
+		SELECT * 
+		FROM PRODUCT A 
+		JOIN PRODUCT_IMAGE B USING(PRODUCT_CODE) 
+		WHERE PRODUCT_CODE = #{product_code}
+		AND PRODUCT_DELETE = 0
+		ORDER BY PRODUCT_IMAGE_PATH ASC, PRODUCT_CODE ASC
+	</select>
+
+	<select id="productTotalCount" parameterType="Product" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT A 
+		WHERE PRODUCT_CATEGORY = #{product_category} 
+		AND PRODUCT_DELETE = 0
+		ORDER BY PRODUCT_CODE ASC
+	</select>
+
+	<select id="productList" parameterType="map" resultType="map" resultMap="resultProduct">
+		SELECT * 
+		FROM(SELECT ROWNUM RNUM, A.* 
+			FROM (SELECT * 
+					FROM PRODUCT 
+					WHERE PRODUCT_DELETE = 0 
+					<if test="keyword != null">
+					AND PRODUCT_NAME LIKE '%'||#{keyword}||'%'
+					</if>
+					AND PRODUCT_CATEGORY = #{product.product_category}
+                    AND (
+                    <foreach collection="prdouctBrandList" item="item" index="index"  open="" separator=" OR " close="" >
+                    	PRODUCT_BRAND LIKE '%'||#{item}||'%'
+                    </foreach>
+                    )
+                    AND RENT_PRICE BETWEEN #{startPrice} AND #{endPrice}
+					ORDER BY RECEIVE_DATE DESC) A) 
+		JOIN PRODUCT_IMAGE B USING(PRODUCT_CODE) 
+        WHERE RNUM &#62;= #{ startCount } AND RNUM &#60;= #{ endCount }
+        ORDER BY PRODUCT_CODE DESC, PRODUCT_IMAGE_PATH ASC 
+	</select>
+	
+	<select id="selectBrand" resultType="string">
+		SELECT DISTINCT PRODUCT_BRAND 
+		FROM PRODUCT
+	</select>
+	
+	<select id="newProductList" resultType="Product" resultMap="resultProduct">
+		SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT *
+               FROM PRODUCT
+               WHERE PRODUCT_DELETE = 0
+               ORDER BY RECEIVE_DATE DESC) A)
+      JOIN PRODUCT_IMAGE B USING(PRODUCT_CODE)
+        WHERE RNUM &#60; 10
+        ORDER BY PRODUCT_CODE DESC, PRODUCT_IMAGE_PATH ASC
+	</select>
+	
+
+	<update id="productHit" parameterType="Product">
+		UPDATE PRODUCT  
+		SET PRODUCT_HIT = (SELECT MAX(PRODUCT_HIT)+1 FROM PRODUCT WHERE PRODUCT_CODE = #{product_code}) 
+		WHERE PRODUCT_CODE = #{product_code}
+	</update>
+	
+	<update id="productDelete" parameterType="Product">
+		UPDATE PRODUCT  
+		SET PRODUCT_DELETE = 1
+		WHERE PRODUCT_CODE = #{product_code}
+	</update>
+	
+	<insert id="productInsert" parameterType="Product">
+		INSERT INTO PRODUCT VALUES((SELECT MAX(PRODUCT_CODE) FROM PRODUCT)+1, #{product_name}, #{product_category}, #{product_brand}, #{product_descript}, #{product_original_price}, #{rent_price}, #{product_size33}, #{product_size44}, #{product_size55}, #{product_size66}, #{product_size77}, #{product_color}, SYSDATE, 0, 0)
+	</insert>
+	
+	<update id="productUpdate" parameterType="Product">
+		UPDATE PRODUCT 
+		SET PRODUCT_CODE = #{product_code}
+			, PRODUCT_NAME = #{product_name}
+			, PRODUCT_CATEGORY = #{product_category}
+			, PRODUCT_BRAND = #{product_brand}
+			, PRODUCT_DESCRIPT = #{product_descript}
+			, PRODUCT_ORIGINAL_PRICE = #{product_original_price}
+			, RENT_PRICE = #{rent_price}
+			, PRODUCT_SIZE33 = #{product_size33}
+			, PRODUCT_SIZE44 = #{product_size44}
+			, PRODUCT_SIZE55 = #{product_size55}
+			, PRODUCT_SIZE66 = #{product_size66}
+			, PRODUCT_SIZE77 = #{product_size77}
+			, PRODUCT_COLOR = #{product_color}
+			, RECEIVE_DATE = #{receive_date}
+		WHERE PRODUCT_CODE = #{product_code}
+	</update>
+	
+	<update id="productImageUpdate" parameterType="map">
+		UPDATE PRODUCT 
+		SET PRODUCT_NAME = #{product_name}
+			, PRODUCT_CATEGORY = #{product_category}
+			, PRODUCT_BRAND = #{product_brand}
+			, PRODUCT_DESCRIPT = #{product_descript}
+			, PRODUCT_ORIGINAL_PRICE = #{product_original_price}
+			, RENT_PRICE = #{rent_price}
+			, PRODUCT_SIZE33 = #{product_size33}
+			, PRODUCT_SIZE44 = #{product_size44}
+			, PRODUCT_SIZE55 = #{product_size55}
+			, PRODUCT_SIZE66 = #{product_size66}
+			, PRODUCT_SIZE77 = #{product_size77}
+			, PRODUCT_COLOR = #{product_color}
+			, RECEIVE_DATE = #{receive_date}
+		WHERE PRODUCT_CODE = #{product_code}
+	</update>
+	
+	<select id="productRecentProductCode" resultType="_int">
+		SELECT MAX(PRODUCT_CODE)
+		FROM PRODUCT
+		WHERE PRODUCT_DELETE = 0
+		ORDER BY PRODUCT_CODE ASC
+	</select>
+	
+	<select id="productListAll" resultType="string">
+		SELECT PRODUCT_NAME 
+		FROM PRODUCT 
+		ORDER BY PRODUCT_HIT DESC
+	</select>
+	
+	<insert id="productImageInsert" parameterType="map">
+		<foreach collection="imageNameList" item="item" index="index"  open="INSERT ALL" separator=" " close="SELECT * FROM DUAL" > 
+		 INTO PRODUCT_IMAGE
+		 VALUES(#{recentProductCode}, #{item})
+		</foreach>
+	</insert>
+	
+	<delete id="productImageDelete" parameterType="Product">
+		DELETE FROM PRODUCT_IMAGE WHERE PRODUCT_CODE = #{product_code}
+	</delete>
+
+</mapper>

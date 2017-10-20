@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Income">
+
+	<resultMap id="resultIncome" type="Income">
+		<result property="auction_code" column="AUCTION_CODE"/>
+		<result property="income" column="INCOME"/>
+		<result property="member_id" column="member_id"/>
+		<result property="income_date" column="INCOME_DATE"/>
+		<result property="receiver_name" column="RECEIVER_NAME"/>
+		<result property="receiver_address" column="RECEIVER_ADDRESS"/>
+		<result property="receiver_phone" column="RECEIVER_PHONE"/>
+		<result property="request" column="request"/>
+		<result property="order_invoice_number" column="ORDER_INVOICE_NUMBER"/>
+		
+		<collection property="auctionJoin" ofType="Auction">
+			<result property="auction_name" column="auction_name"/>
+	  		<result property="auction_category" column="auction_category"/>
+	  		<result property="auction_brand" column="auction_brand"/>
+	  		<result property="auction_descript" column="auction_descript"/>
+	  		<result property="start_price" column="start_price"/>
+	  		<result property="start_date" column="start_date"/>
+	  		<result property="end_date" column="end_date"/>
+	  		<result property="auction_size" column="auction_size"/>
+	  		<result property="auction_color" column="auction_color"/>
+	  		<result property="image_path" column="image_path"/>
+	  		<result property="payment_yn" column="payment_yn"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="countRow" resultType="_int">
+	select count(*) from income
+	</select>
+	
+	<select id="selectList" resultType="Income" parameterType="_int" resultMap="resultIncome">
+	select *
+	from (select rownum rnum, A.*
+	from (select * from income order by income_date desc) A
+	where rownum&lt;=#{endRow})
+	where rnum&gt;=#{startRow}
+	</select>
+	
+	<!-- 판매시 insert -->
+	<insert id="insertIncome" parameterType="Income">
+	insert into income values (
+	(select max(income_number) from income)+1,
+	#{auction_code},
+	#{income},
+	sysdate,
+	#{member_id},
+	#{receiver_name},
+	#{receiver_address},
+	#{receiver_phone},
+	#{request},
+	null
+	)
+	</insert>
+	<select id="unique" resultType="_int" parameterType="Income">
+	select count(*) from Income where auction_code=#{auction_code}
+	</select>
+	
+	<select id="countRowByDate" resultType="_int" parameterType="hashmap">
+	select count(*) from income
+	where income_date&gt;=#{startDate}
+	and income_date&lt;=#{endDate}
+	</select>
+	
+	<select id="selectListByDate" resultType="Income" parameterType="hashmap" resultMap="resultIncome">
+	select *
+	from (select rownum rnum, auction_code, income, income_date
+	from (select * from income
+	where income_date&gt;=#{startDate}
+	and income_date&lt;=#{endDate}
+	 order by income_date desc)
+	where rownum&lt;=#{endRow})
+	where rnum&gt;=#{startRow}
+	</select>
+	
+	<select id="selectMemberIncome" resultType="Income" parameterType="String" resultMap="resultIncome">
+		SELECT * 
+		FROM INCOME
+		JOIN AUCTION USING (AUCTION_CODE)
+		WHERE MEMBER_ID = #{member_id}
+		ORDER BY INCOME_DATE DESC
+	</select>
+	
+</mapper>

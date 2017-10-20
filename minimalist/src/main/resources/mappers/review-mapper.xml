@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Review">
+
+	<resultMap id="resultReview" type="Review">
+		<id property="review_no" column="REVIEW_NO"/>
+		<result property="product_code" column="PRODUCT_CODE"/>
+		<result property="member_id" column="MEMBER_ID"/>
+		<result property="review_title" column="REVIEW_TITLE"/>
+		<result property="review_content" column="REVIEW_CONTENT"/>
+		<result property="review_rating" column="REVIEW_RATING"/>
+		<result property="image_path" column="IMAGE_PATH"/>
+		<result property="review_date" column="REVIEW_DATE"/>
+		<association property="productJoin"  javaType="Product">
+  			<id property="product_code" column="PRODUCT_CODE" />
+  			<result property="product_name" column="PRODUCT_NAME"/>
+  		</association>
+	</resultMap>
+	
+	
+	<select id="countRow" parameterType="_int" resultType="_int">
+	select count(*) from review where product_code=#{product_code}
+	
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultType="Review" resultMap="resultReview">
+	select *
+	from (select rownum rnum, review_no,
+	product_code, member_id, review_title,
+	review_content, review_rating, image_path, review_date from (select * from review
+	where product_code=#{product_code}
+	order by review_no desc)
+	where rownum&lt;=#{endRow})
+	where rnum&gt;=#{startRow}
+	</select>
+	<select id="selectOne" parameterType="_int" resultType="Review" resultMap="resultReview">
+	select *
+	from review
+	where review_no=#{review_no}
+	</select>
+	<!-- 등록 -->
+	<insert id="insertReview" parameterType="Review">
+	insert into review values(
+	(select max(review_no) from review)+1, #{product_code},
+	#{member_id}, #{review_title}, #{review_content}, #{review_rating}, #{image_path}, sysdate)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateReview" parameterType="Review">
+	update review
+	set 
+	<if test="image_path!=null">
+	 image_path=#{image_path},
+	</if>
+	 review_title=#{review_title},
+	 review_content=#{review_content},
+	 review_rating=#{review_rating}
+	 where review_no=#{review_no}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteReview" parameterType="_int">
+	delete from review
+	where review_no=#{review_no}
+	</delete>
+	
+	<!-- MY REVIEW -->
+	<select id="myReview" parameterType="string" resultType="Review" resultMap="resultReview">
+		SELECT *
+		FROM REVIEW
+		JOIN PRODUCT USING (PRODUCT_CODE)
+		WHERE MEMBER_ID = #{member_id} ORDER BY REVIEW_DATE DESC
+	</select>
+</mapper>
