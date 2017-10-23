@@ -393,7 +393,7 @@ public class MemberController {
 			} else {
 				model.addAttribute("error", "비밀번호가 틀렸습니다.");
 			}
-		} else if(sessionMember != null && m.getMember_pwd() == null){
+		} else if (sessionMember != null && m.getMember_pwd() == null) {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('비정상적 접근입니다.'); location.href = \"http://localhost/minimalist/index.do\";</script>");
 			out.flush();

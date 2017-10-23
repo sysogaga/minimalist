@@ -10,6 +10,6 @@ public interface WishService {
 	int wishDelete(Wish wish);
 
 	Wish wishSelectOne(Wish wish);
-	
+
 	ArrayList<Wish> myWish(String member_id);
 }

@@ -74,5 +74,4 @@ public class ProductDao {
 		return (ArrayList<String>) list;
 	}
 
-
 }

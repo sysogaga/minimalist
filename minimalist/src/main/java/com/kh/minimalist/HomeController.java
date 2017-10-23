@@ -20,15 +20,15 @@ import com.kh.minimalist.product.model.vo.Product;
  */
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public String index(Product product, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
 		ArrayList<Product> productList = productService.productList();
 		model.addAttribute("productList", productList);
 		return "main/index";
 	}
-	
+
 }

@@ -14,10 +14,10 @@ public class Wish implements Serializable {
 	private static final long serialVersionUID = 7012053293797924814L;
 	private String member_id;
 	private int product_code;
-	
+
 	private Product productJoin;
-	
-	private ArrayList<ProductImage> productImageJoin;	
+
+	private ArrayList<ProductImage> productImageJoin;
 
 	public Product getProduct() {
 		return productJoin;

@@ -11,7 +11,6 @@ public interface MessageService {
 
 	int insertMessage(ArrayList<String> idList, Message message);
 
-
 	int insertMessage2(Message m);
 
 	int selectMessageCount(String member_id);
@@ -21,6 +20,5 @@ public interface MessageService {
 	ArrayList<Message> selectMessageList(HashMap<String, Object> map);
 
 	int messageDelete(int mNum);
-
 
 }

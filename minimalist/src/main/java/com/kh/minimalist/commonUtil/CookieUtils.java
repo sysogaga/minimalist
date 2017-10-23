@@ -60,7 +60,7 @@ public class CookieUtils {
 					copyList.add(list.get(i));
 				}
 				list = copyList;
-				
+
 			}
 		}
 		return list;
@@ -70,8 +70,7 @@ public class CookieUtils {
 	 * @description 쿠키를 생성 혹은 업데이트한다.
 	 * @params key: 쿠키 이름, value: 쿠키 이름과 짝을 이루는 값, day: 쿠키의 수명
 	 */
-	public void setCookie(String key, String value, int day, HttpServletRequest request, HttpServletResponse response)
-			throws UnsupportedEncodingException {
+	public void setCookie(String key, String value, int day, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		List<String> list = getValueList(key, request);
 		String sumValue = "";
 		int equalsValueCnt = 0;
@@ -106,15 +105,14 @@ public class CookieUtils {
 	 * @description 쿠키값들 중 특정 값을 삭제한다.
 	 * @params key: 쿠키 이름, value: 쿠키 이름과 짝을 이루는 값
 	 */
-	@RequestMapping(value = "deleteCookie.do",  method = RequestMethod.POST)
-	public void deleteCookie(String key, String value, HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws IOException {
+	@RequestMapping(value = "deleteCookie.do", method = RequestMethod.POST)
+	public void deleteCookie(String key, String value, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		value = request.getParameter("del_cookie");
-		if(session.getAttribute("member") != null)
+		if (session.getAttribute("member") != null)
 			key = ((Member) session.getAttribute("member")).getMember_id();
 		else
 			key = "anonymous";
-		
+
 		List<String> list = getValueList(key, request);
 
 		list.remove(value);
@@ -139,7 +137,7 @@ public class CookieUtils {
 		cookie.setMaxAge(time);
 		cookie.setPath(path);
 		response.addCookie(cookie);
-		
+
 		// AJAX로 출력
 		PrintWriter writer;
 		writer = response.getWriter();
@@ -160,8 +158,7 @@ public class CookieUtils {
 	 * @description 일반적인 쿠키 생성
 	 * @params key: 쿠키 이름, value: 쿠키 이름과 짝을 이루는 값, day: 쿠키의 수명
 	 */
-	public Cookie createNewCookie(String key, String value, int day, HttpServletRequest request,
-			HttpServletResponse response) throws UnsupportedEncodingException {
+	public Cookie createNewCookie(String key, String value, int day, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		Cookie cookie = new Cookie(key, URLEncoder.encode(value, encoding));
 		cookie.setPath(path);
 		cookie.setMaxAge(60 * 60 * 24 * day);

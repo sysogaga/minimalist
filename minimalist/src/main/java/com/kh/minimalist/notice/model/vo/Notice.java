@@ -5,14 +5,14 @@ import java.sql.Date;
 
 public class Notice implements Serializable {
 
-	
 	private static final long serialVersionUID = -5573071237280330655L;
 	private int notice_no;
 	private String notice_title;
 	private String notice_content;
 	private Date notice_date;
-	
-	public Notice(){}
+
+	public Notice() {
+	}
 
 	public Notice(int notice_no, String notice_title, String notice_content, Date notice_date) {
 		super();
@@ -53,7 +53,5 @@ public class Notice implements Serializable {
 	public void setNotice_date(Date notice_date) {
 		this.notice_date = notice_date;
 	}
-	
-	
-	
+
 }

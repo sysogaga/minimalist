@@ -26,11 +26,7 @@ public class OrderInfo implements Serializable {
 	public OrderInfo() {
 	}
 
-	
-
-	public OrderInfo(int orderinfo_code, String member_id, int product_code, Date orderinfo_date,
-			String order_receiver_name, String order_receiver_address, String order_receiver_phone, String order_size,
-			int order_invoice_number, Product productJoin) {
+	public OrderInfo(int orderinfo_code, String member_id, int product_code, Date orderinfo_date, String order_receiver_name, String order_receiver_address, String order_receiver_phone, String order_size, int order_invoice_number, Product productJoin) {
 		super();
 		this.orderinfo_code = orderinfo_code;
 		this.member_id = member_id;
@@ -43,8 +39,6 @@ public class OrderInfo implements Serializable {
 		this.order_invoice_number = order_invoice_number;
 		this.productJoin = productJoin;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -130,7 +124,5 @@ public class OrderInfo implements Serializable {
 	public void setProductJoin(Product productJoin) {
 		this.productJoin = productJoin;
 	}
-
-	
 
 }

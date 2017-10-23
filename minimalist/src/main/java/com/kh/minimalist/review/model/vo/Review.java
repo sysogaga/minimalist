@@ -22,8 +22,7 @@ public class Review implements Serializable {
 	public Review() {
 	}
 
-	public Review(int review_no, int product_code, String member_id, String review_title, String review_content,
-			int review_rating, String image_path, Date review_date, Product productJoin) {
+	public Review(int review_no, int product_code, String member_id, String review_title, String review_content, int review_rating, String image_path, Date review_date, Product productJoin) {
 		super();
 		this.review_no = review_no;
 		this.product_code = product_code;

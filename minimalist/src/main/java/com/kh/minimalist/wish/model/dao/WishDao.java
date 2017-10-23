@@ -32,7 +32,7 @@ public class WishDao {
 
 	public ArrayList<Wish> myWish(String member_id) {
 		List<Wish> list = sqlSession.selectList("Wish.myWish", member_id);
-		return (ArrayList<Wish>)list;
+		return (ArrayList<Wish>) list;
 	}
 
 }

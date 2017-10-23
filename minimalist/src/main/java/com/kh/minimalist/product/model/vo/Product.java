@@ -36,11 +36,7 @@ public class Product implements Serializable {
 		this.product_code = product_code;
 	}
 
-	public Product(int product_code, String product_name, String product_category, String product_brand,
-			String product_descript, int product_original_price, int rent_price, String product_size33,
-			String product_size44, String product_size55, String product_size66, String product_size77,
-			String product_color, Date receive_date, int product_hit, String product_delete,
-			ArrayList<ProductImage> productImageList) {
+	public Product(int product_code, String product_name, String product_category, String product_brand, String product_descript, int product_original_price, int rent_price, String product_size33, String product_size44, String product_size55, String product_size66, String product_size77, String product_color, Date receive_date, int product_hit, String product_delete, ArrayList<ProductImage> productImageList) {
 		super();
 		this.product_code = product_code;
 		this.product_name = product_name;
@@ -63,13 +59,8 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Product [product_code=" + product_code + ", product_name=" + product_name + ", product_category="
-				+ product_category + ", product_brand=" + product_brand + ", product_descript=" + product_descript
-				+ ", product_original_price=" + product_original_price + ", rent_price=" + rent_price
-				+ ", product_size33=" + product_size33 + ", product_size44=" + product_size44 + ", product_size55="
-				+ product_size55 + ", product_size66=" + product_size66 + ", product_size77=" + product_size77
-				+ ", product_color=" + product_color + ", receive_date=" + receive_date + ", product_hit=" + product_hit
-				+ ", product_delete=" + product_delete + ", productImageList=" + productImageList + "]";
+		return "Product [product_code=" + product_code + ", product_name=" + product_name + ", product_category=" + product_category + ", product_brand=" + product_brand + ", product_descript=" + product_descript + ", product_original_price=" + product_original_price + ", rent_price=" + rent_price + ", product_size33=" + product_size33 + ", product_size44=" + product_size44 + ", product_size55=" + product_size55 + ", product_size66=" + product_size66 + ", product_size77=" + product_size77
+				+ ", product_color=" + product_color + ", receive_date=" + receive_date + ", product_hit=" + product_hit + ", product_delete=" + product_delete + ", productImageList=" + productImageList + "]";
 	}
 
 	public int getProduct_code() {

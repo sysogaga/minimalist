@@ -5,7 +5,6 @@ import java.sql.Date;
 
 public class Qna implements Serializable {
 
-
 	private static final long serialVersionUID = 7426857891476859587L;
 	private int qna_no;
 	private String member_id;
@@ -15,13 +14,11 @@ public class Qna implements Serializable {
 	private String qna_comment;
 	private Date qna_date;
 	private String img_path;
-	
-	public Qna(){}
 
-	
+	public Qna() {
+	}
 
-	public Qna(int qna_no, String member_id, String qna_title, String qna_content, String qna_category,
-			String qna_comment, Date qna_date, String img_path) {
+	public Qna(int qna_no, String member_id, String qna_title, String qna_content, String qna_category, String qna_comment, Date qna_date, String img_path) {
 		super();
 		this.qna_no = qna_no;
 		this.member_id = member_id;
@@ -32,8 +29,6 @@ public class Qna implements Serializable {
 		this.qna_date = qna_date;
 		this.img_path = img_path;
 	}
-
-
 
 	public int getQna_no() {
 		return qna_no;
@@ -50,8 +45,6 @@ public class Qna implements Serializable {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-
-
 
 	public String getQna_title() {
 		return qna_title;
@@ -85,7 +78,6 @@ public class Qna implements Serializable {
 		this.qna_comment = qna_comment;
 	}
 
-
 	public Date getQna_date() {
 		return qna_date;
 	}
@@ -94,20 +86,12 @@ public class Qna implements Serializable {
 		this.qna_date = qna_date;
 	}
 
-
-
 	public String getImg_path() {
 		return img_path;
 	}
 
-
-
 	public void setImg_path(String img_path) {
 		this.img_path = img_path;
 	}
-	
-	
-	
-	
-	
+
 }

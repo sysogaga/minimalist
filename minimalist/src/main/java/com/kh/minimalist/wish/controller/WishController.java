@@ -24,8 +24,7 @@ public class WishController {
 	private WishService wishService;
 
 	@RequestMapping(value = "wishInsert.do", method = RequestMethod.POST)
-	public void wishInsert(@RequestParam("product_code") int product_code, Model model, HttpSession session,
-			HttpServletResponse response) {
+	public void wishInsert(@RequestParam("product_code") int product_code, Model model, HttpSession session, HttpServletResponse response) {
 		PrintWriter writer = null;
 		if ((Member) session.getAttribute("member") != null) {
 			Wish wish = new Wish(((Member) session.getAttribute("member")).getMember_id(), product_code);
@@ -58,8 +57,7 @@ public class WishController {
 	}
 
 	@RequestMapping(value = "wishDelete.do", method = RequestMethod.POST)
-	public void wishDelete(@RequestParam("product_code") int product_code, Model model, HttpSession session,
-			HttpServletResponse response) {
+	public void wishDelete(@RequestParam("product_code") int product_code, Model model, HttpSession session, HttpServletResponse response) {
 		PrintWriter writer = null;
 		if ((Member) session.getAttribute("member") != null) {
 			Wish wish = new Wish(((Member) session.getAttribute("member")).getMember_id(), product_code);
@@ -89,7 +87,7 @@ public class WishController {
 			}
 		}
 	}
-	
+
 	@RequestMapping("wish.wishlist.do")
 	public String myWishList(HttpSession session, Model model) {
 		Member member = ((Member) session.getAttribute("member"));
@@ -100,6 +98,5 @@ public class WishController {
 		}
 		return result;
 	}
-
 
 }

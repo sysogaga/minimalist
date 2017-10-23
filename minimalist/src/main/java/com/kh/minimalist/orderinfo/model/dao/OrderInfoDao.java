@@ -25,12 +25,11 @@ public class OrderInfoDao {
 
 	public ArrayList<OrderInfo> myOrder(HashMap<String, Object> map) {
 		List<OrderInfo> list = sqlSession.selectList("OrderInfo.myOrder", map);
-		return (ArrayList<OrderInfo>)list;
+		return (ArrayList<OrderInfo>) list;
 	}
 
 	public int myOrderCount(HashMap<String, Object> totalCountMap) {
 		return sqlSession.selectOne("OrderInfo.myOrderCount", totalCountMap);
 	}
-
 
 }

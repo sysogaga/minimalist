@@ -100,7 +100,7 @@ public class ProductController {
 		int totalCount = productService.productTotalCount(product);
 		int startCount = 0;
 		int endCount = 0;
-		
+
 		// productPage에 잘못된 값이 들어왔을 때
 		if (productPage != 1 && (productPage - 1) * 12 + 1 > totalCount) {
 			productPage = totalCount / 12;
@@ -114,31 +114,30 @@ public class ProductController {
 		} else {
 			endCount = productPage * 12;
 		}
-		
+
 		if (product.getProduct_category() == null || product.getProduct_category().equals("")) {
 			product.setProduct_category("outer");
 		}
-		
+
 		String searchString = null;
 		String[] searchArray = new String[4];
-		if(request.getParameter("n_text_search") != null){
+		if (request.getParameter("n_text_search") != null) {
 			searchString = request.getParameter("n_text_search");
 			model.addAttribute("searchString", searchString);
 
 			String[] searchArrayPre = searchString.split("/");
-			
-			for(int i = 0; i < searchArrayPre.length; i++){
+
+			for (int i = 0; i < searchArrayPre.length; i++) {
 				searchArray[i] = searchArrayPre[i];
 			}
 		}
-		
-		
+
 		// keyword를 가져옵니다. (null이어도 괜찮습니다.)
 		String keyword = null;
 		if (searchArray[0] != null && !searchArray[0].equals("")) {
 			keyword = searchArray[0];
 		}
-		
+
 		// 기본 값이 없을 때 모든 값을 가져옵니다.
 		ArrayList<String> prdouctBrandList = new ArrayList<String>();
 		if (searchArray[1] != null && !searchArray[1].equals("")) {
@@ -166,7 +165,7 @@ public class ProductController {
 		hashMap.put("startPrice", startPrice);
 		hashMap.put("endPrice", endPrice);
 		hashMap.put("keyword", keyword);
-		
+
 		ArrayList<Product> productList = productService.productList(hashMap);
 
 		if (productList != null && productList.size() != 0) {
@@ -236,16 +235,16 @@ public class ProductController {
 		String searchString = null;
 		String[] searchArray = new String[4];
 
-		if(request.getParameter("n_text_search") != null){
+		if (request.getParameter("n_text_search") != null) {
 			searchString = request.getParameter("n_text_search");
-			
+
 			String[] searchArrayPre = searchString.split("/");
-			
-			for(int i = 0; i < searchArrayPre.length; i++){
+
+			for (int i = 0; i < searchArrayPre.length; i++) {
 				searchArray[i] = searchArrayPre[i];
 			}
 		}
-		
+
 		// keyword를 가져옵니다. (null이어도 괜찮습니다.)
 		String keyword = null;
 		if (searchArray[0] != null && !searchArray[0].equals("")) {
@@ -339,11 +338,11 @@ public class ProductController {
 		String returnResult = "main/404";
 		if (session.getAttribute("member") != null && ((Member) session.getAttribute("member")).getMember_id().equals("admin")) {
 			int result1 = productService.productUpdate(product);
-			if(result1 > 0)
+			if (result1 > 0)
 				returnResult = "redirect:productDetail.do?product_code=" + product.getProduct_code();
-			
+
 			if (!request.getParameter("n_hidden_image1").equals("") && !request.getParameter("n_hidden_image2").equals("") && !request.getParameter("n_hidden_image3").equals("")) {
-				
+
 				ArrayList<String> imageNameList = new ArrayList<String>();
 				imageNameList.add(request.getParameter("n_hidden_image1"));
 				imageNameList.add(request.getParameter("n_hidden_image2"));

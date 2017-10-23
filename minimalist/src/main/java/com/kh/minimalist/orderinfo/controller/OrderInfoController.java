@@ -26,10 +26,9 @@ public class OrderInfoController {
 	private OrderInfoService orderInfoService;
 	@Autowired
 	private ProductService productService;
-	
+
 	@RequestMapping(value = "orderInfoInsert.do", method = RequestMethod.POST)
-	public void orderInfoInsert(Product product, OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response,
-			HttpSession session) {
+	public void orderInfoInsert(Product product, OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int result = 0;
 		if ((Member) session.getAttribute("member") != null) {
 			orderInfo.setMember_id(((Member) session.getAttribute("member")).getMember_id());
@@ -50,12 +49,11 @@ public class OrderInfoController {
 			writer.flush();
 			writer.close();
 		}
-		
+
 	}
 
 	@RequestMapping(value = "orderView.do", method = RequestMethod.POST)
-	public String orderVeiw(Product product, OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response,
-			HttpSession session) {
+	public String orderVeiw(Product product, OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String returnResult = "main/404";
 		if ((Member) session.getAttribute("member") != null) {
 			Product product_return = productService.productDetail(product);

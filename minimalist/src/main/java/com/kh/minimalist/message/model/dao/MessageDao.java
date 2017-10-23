@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.minimalist.message.model.vo.Message;
 
-
 @Repository("messageDao")
 public class MessageDao {
 
@@ -24,16 +23,15 @@ public class MessageDao {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("idList", idList);
 		map.put("message", message);
-		
+
 		return sqlSession.insert("Message.messageInsert", map);
 	}
 
 	//경매 완료 쪽지
-	public int insertMessage2(Message m){
-		
+	public int insertMessage2(Message m) {
+
 		return sqlSession.insert("endAuctionMessage", m);
 	}
-
 
 	public int selectMessageCount(String member_id) {
 		return sqlSession.selectOne("Message.messageCount", member_id);

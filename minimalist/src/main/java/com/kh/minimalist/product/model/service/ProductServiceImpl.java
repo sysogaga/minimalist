@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product productDetail(Product product) {
 		return productDao.productDetail(product);
 	}
-	
+
 	@Override
 	public int productTotalCount(Product product) {
 		return productDao.productTotalCount(product);
@@ -29,7 +29,6 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<Product> productList(HashMap<String, Object> hashMap) {
 		return productDao.productList(hashMap);
 	}
-
 
 	@Override
 	public void productHit(Product product) {
@@ -80,8 +79,5 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<String> selectBrand() {
 		return productDao.selectBrand();
 	}
-
-
-
 
 }

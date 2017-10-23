@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Auction implements Serializable {
 
-	
 	private static final long serialVersionUID = -3836973302037579389L;
 	private int auction_code;
 	private String auction_name;
@@ -20,22 +19,21 @@ public class Auction implements Serializable {
 	private String auction_color;
 	private String image_path;
 	private String payment_yn;
-	
+
 	//입찰 정보 테이블
 	private ArrayList<BidInfo> bidInfo;
-	
-	public Auction(){}
 
-	public Auction(int auction_code, String auction_name, String auction_category, String auction_brand,
-			String auction_descript, int start_price, Date start_date, Date end_date, String auction_size, String auction_color,
-			String image_path, String payment_yn, ArrayList<BidInfo> bidInfo) {
+	public Auction() {
+	}
+
+	public Auction(int auction_code, String auction_name, String auction_category, String auction_brand, String auction_descript, int start_price, Date start_date, Date end_date, String auction_size, String auction_color, String image_path, String payment_yn, ArrayList<BidInfo> bidInfo) {
 		super();
 		this.auction_code = auction_code;
 		this.auction_name = auction_name;
 		this.auction_category = auction_category;
 		this.auction_brand = auction_brand;
 		this.auction_descript = auction_descript;
-		this.start_price=start_price;
+		this.start_price = start_price;
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.auction_size = auction_size;
@@ -149,9 +147,4 @@ public class Auction implements Serializable {
 		this.start_price = start_price;
 	}
 
-
-	
-	
-	
-	
 }

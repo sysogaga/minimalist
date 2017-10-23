@@ -15,44 +15,44 @@ public class QnaDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	public int countRow() {
-		
+
 		return sqlSession.selectOne("Qna.countRow");
 	}
 
 	public ArrayList<Qna> selectList(HashMap<String, Object> map) {
-		
-		List<Qna> list=null;
-		
-		list=sqlSession.selectList("Qna.selectList", map);
-		
-		return (ArrayList<Qna>)list; 
-	
+
+		List<Qna> list = null;
+
+		list = sqlSession.selectList("Qna.selectList", map);
+
+		return (ArrayList<Qna>) list;
+
 	}
 
 	public Qna selectOne(int qna_no) {
-		
+
 		return sqlSession.selectOne("Qna.selectOne", qna_no);
 	}
-	
-	public int addComment(Qna qna){
-		
+
+	public int addComment(Qna qna) {
+
 		return sqlSession.update("Qna.addComment", qna);
 	}
 
-	public int writeQna(Qna qna){
-		
+	public int writeQna(Qna qna) {
+
 		return sqlSession.insert("Qna.writeQna", qna);
 	}
-	
-	public int updateQna(Qna qna){
-		
+
+	public int updateQna(Qna qna) {
+
 		return sqlSession.update("Qna.updateQna", qna);
 	}
-	
-	public int deleteQna(int qna_no){
-		
+
+	public int deleteQna(int qna_no) {
+
 		return sqlSession.delete("Qna.deleteQna", qna_no);
 	}
 }

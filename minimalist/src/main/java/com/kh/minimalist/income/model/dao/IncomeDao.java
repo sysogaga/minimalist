@@ -15,47 +15,44 @@ public class IncomeDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	public int countRow(){
-		
+
+	public int countRow() {
+
 		return sqlSession.selectOne("Income.countRow");
 	}
-	
-	public ArrayList<Income> selectList(HashMap<String, Object> map){
-		
-		List<Income> list=null;
-		
-		list=sqlSession.selectList("Income.selectList", map);
-		
-		return (ArrayList<Income>)list;
+
+	public ArrayList<Income> selectList(HashMap<String, Object> map) {
+
+		List<Income> list = null;
+
+		list = sqlSession.selectList("Income.selectList", map);
+
+		return (ArrayList<Income>) list;
 	}
-	
-	public int insertIncome(Income income){
-		
-		
-		int result=0;
-		
-		
-		result=sqlSession.insert("Income.insertIncome", income);
-			
-		
+
+	public int insertIncome(Income income) {
+
+		int result = 0;
+
+		result = sqlSession.insert("Income.insertIncome", income);
+
 		return result;
-		
+
 	}
-	
-	public int countRowByDate(HashMap<String, Object> map){
-		
+
+	public int countRowByDate(HashMap<String, Object> map) {
+
 		return sqlSession.selectOne("Income.countRowByDate", map);
-		
+
 	}
-	
-	public ArrayList<Income> selectListByDate(HashMap<String, Object> map){
-		
-		List<Income> list=null;
-		
-		list=sqlSession.selectList("Income.selectListByDate", map);
-		
-		return (ArrayList<Income>)list;
+
+	public ArrayList<Income> selectListByDate(HashMap<String, Object> map) {
+
+		List<Income> list = null;
+
+		list = sqlSession.selectList("Income.selectListByDate", map);
+
+		return (ArrayList<Income>) list;
 	}
 
 	public ArrayList<Income> selectMemberIncome(String member_id) {

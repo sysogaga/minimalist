@@ -9,9 +9,9 @@ public interface ProductService {
 	Product productDetail(Product product);
 
 	ArrayList<Product> productList(HashMap<String, Object> hashMap);
-	
+
 	ArrayList<Product> productList();
-	
+
 	ArrayList<Product> productListAll();
 
 	void productHit(Product product);
@@ -21,16 +21,15 @@ public interface ProductService {
 	int productTotalCount(Product product);
 
 	int productInsert(Product product);
-	
+
 	int productUpdate(Product product);
 
 	int productRecentProductCode();
-	
+
 	int productImageInsert(HashMap<String, Object> imageInsertData);
 
 	int productImageDelete(Product product);
 
 	ArrayList<String> selectBrand();
-
 
 }

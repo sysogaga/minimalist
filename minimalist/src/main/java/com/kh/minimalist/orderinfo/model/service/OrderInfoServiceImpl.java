@@ -10,7 +10,7 @@ import com.kh.minimalist.orderinfo.model.dao.OrderInfoDao;
 import com.kh.minimalist.orderinfo.model.vo.OrderInfo;
 
 @Service("orderInfoService")
-public class OrderInfoServiceImpl implements OrderInfoService{
+public class OrderInfoServiceImpl implements OrderInfoService {
 
 	@Autowired
 	OrderInfoDao orderInfoDao;
@@ -29,9 +29,5 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 	public int myOrderCount(HashMap<String, Object> totalCountMap) {
 		return orderInfoDao.myOrderCount(totalCountMap);
 	}
-	
-	
-	
-
 
 }

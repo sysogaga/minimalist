@@ -4,15 +4,14 @@ import java.io.Serializable;
 
 public class BidInfo implements Serializable {
 
-	
 	private static final long serialVersionUID = -432896456331539059L;
 	private int auction_code;
 	private String member_id;
 	private int bid_price;
-	
-//	입찰가
+
+	//	입찰가
 	private int max_bid;
-	
+
 	public int getMax_bid() {
 		return max_bid;
 	}
@@ -21,7 +20,8 @@ public class BidInfo implements Serializable {
 		this.max_bid = max_bid;
 	}
 
-	public BidInfo(){}
+	public BidInfo() {
+	}
 
 	public BidInfo(int auction_code, String member_id, int bid_price, int max_bid) {
 		super();
@@ -54,7 +54,5 @@ public class BidInfo implements Serializable {
 	public void setBid_price(int bid_price) {
 		this.bid_price = bid_price;
 	}
-	
-	
-	
+
 }

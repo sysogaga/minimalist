@@ -14,7 +14,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDao memberDao;
-		
+
 	@Override
 	public Member loginMember(Member m) {
 		return memberDao.selectMember(m);
@@ -32,13 +32,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member searchMember(String member_id) {
-		
+
 		return memberDao.searchMember(member_id);
 	}
 
 	@Override
 	public ArrayList<Member> mList() {
-		
+
 		return memberDao.mList();
 	}
 
@@ -86,5 +86,5 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> searchingMember(String id) {
 		return memberDao.searchingMember(id);
 	}
-	
+
 }
